@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Empresa</h1>
+        <h2>Áreas</h2>
+        <ul>
+            #foreach($area in $areas)
+                <li>$area.nombre - Director: $area.director</li>
+            #end
+        </ul>
+        <hr>
+        <h2>Empleados por Código de Área</h2>
+        <form action="/api/empresa/empleadosArea" method="get">
+            <label for="codigoArea">Código de Área:</label>
+            <input type="text" id="codigo" name="codigo">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        <ul>#if ($empleadosC.isEmpty())
+            #else
+                #foreach($empleado in $empleadosC)
+                    <li>$empleado.nombre - Categoría: $empleado.categoria - Dedicación: $empleado.dedicacion</li>
+                #end
+            #end
+        </ul>
+        <hr>
+        <h2>Agregar Área</h2>
+        <form action="/api/empresa/agregarArea" method="post">
+            <label for="nombreArea">Codigo del Área:</label>
+            <input type="number" id="codigo" name="codigo">
+            <label for="nombreArea">Nombre del Área:</label>
+            <input type="text" id="nombre" name="nombre">
+            <label for="directorArea">Director:</label>
+            <input type="text" id="director" name="director">
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
+        $mensaje1
+        <hr>
+        <h2>Empleados</h2>
+        <ul>
+            #foreach($empleado in $empleados)
+                <li>$empleado.nombre - Categoría: $empleado.categoria - Dedicación: $empleado.dedicacion</li>
+            #end
+        </ul>
+        <hr>
+        <h2>Buscar Empleado</h2>
+        <form action="/api/empresa/buscarEmpleado" method="get">
+            <label for="nombreE">Nombre del Empleado:</label>
+            <input type="text" id="nombre" name="nombre">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        <ul>
+            #if($empleadoB.equals(""))
+                <li>Ningun empleado buscado</li>
+            #else
+                <li>$empleadoB.getNombre() - Categoría: $empleadoB.getCategoria() - Dedicación: $empleadoB.getDedicacion()</li>
+            #end
+        </ul>
+        <hr>
+        <hr>
+        <h2>Cantidad de Empleados por Área</h2>
+        <ul>
+            #foreach($reporte in $reporte)
+                <li>$reporte.nombreArea - Cantidad de Empleados: $reporte.cantidadEmpleados</li>
+            #end
+        </ul>
+        <hr>
+        <h2>Agregar Empleado</h2>
+        <form action="/api/empresa/agregarEmpleado" method="post">
+            <label for="nombreEmpleado">Nombre del Empleado:</label>
+            <br>
+            <input type="text" id="nombre" name="nombre">
+            <br>
+            <label for="categoriaEmpleado">Categoría:</label>
+            <br>
+            <input type="text" id="categoria" name="categoria">
+            <br>
+            <label for="dedicacionEmpleado">Dedicación:</label>
+            <br>
+            <input type="text" id="dedicacion" name="dedicacion">
+            <br>
+            <label for="codigoAreaEmpleado">Código de Área:</label>
+            <br>
+            <input type="text" id="codigo" name="codigo">
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
+        $mensaje
+        <div class="panel panel-primary" style="margin-top: 30px; margin-bottom: 30px;">
+            <div class="panel-heading">Info</div>
+            <div class="panel-body">JM Sanchez. 2024.</div>
+          </div>
+    </div>
+</body>
+</html>
